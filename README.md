@@ -1,6 +1,6 @@
 # About app
 
-The test app https://vk.com/@maxpfrontend-testovoe-zadanie-1
+The test app https://vk.com/@maxpfrontend-testovoe-zadanie-2
 
 # Install
 
