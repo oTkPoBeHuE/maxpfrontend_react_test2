@@ -16,7 +16,7 @@ class Login extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: '',
+			email: '',
 			password: ''
 		};
 		this.handleChange = this.handleChange.bind(this);
@@ -31,31 +31,30 @@ class Login extends PureComponent {
 
 	handleSubmit(event) {
 		if (!this.isDisableSubmitButton) {
-			const { username, password } = this.state;
-			this.props.logIn({ username, password });
+			const { email, password } = this.state;
+			this.props.logIn({ email, password });
 		}
 		event.preventDefault();
 	}
 
 	get isDisableSubmitButton() {
-		return !this.state.username || !this.state.password;
+		return !this.state.email || !this.state.password;
 	}
 
 	render() {
 		if (this.props.user) {
 			return <Redirect to="/profile" />;
 		}
-		// autoComplete="username"
 
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
 					<input
-						autoComplete="username"
-						placeholder="Имя"
-						type="text"
-						name="username"
-						value={this.state.username}
+						autoComplete="email"
+						placeholder="Email"
+						type="email"
+						name="email"
+						value={this.state.email}
 						onChange={this.handleChange}
 					/>
 					<input

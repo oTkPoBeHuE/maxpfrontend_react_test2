@@ -6,12 +6,14 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+	console.log('action.type', action.type);
 	switch (action.type) {
 		case LOG_IN:
 			return {
 				...state,
 				user: {
-					name: action.payload.username
+					email: action.payload.email,
+					id: action.payload.id
 				},
 				errorMsg: ''
 			};
