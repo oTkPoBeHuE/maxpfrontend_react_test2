@@ -1,28 +1,21 @@
 import update from 'immutability-helper';
-import { LOG_IN, LOG_OUT, LOG_IN_FAILURE } from 'action_types';
+import { ADD_NEWS, LOAD_NEWS_FAILURE } from 'action_types';
 
 const initialState = {
-	user: null,
+	news: [],
 	errorMsg: ''
 };
 
+// TODO: Переписать чтобы возвращался не update а объект {$set}
 export default (state = initialState, action) => {
 	console.log('action.type', action.type);
 	switch (action.type) {
-		case LOG_IN:
+		case ADD_NEWS:
 			return update(state, {
-				user: {
-					email: { $set: action.payload.email },
-					id: { $set: action.payload.id }
-				},
+				news: { $set: action.payload.news },
 				errorMsg: { $set: '' }
 			});
-		case LOG_OUT:
-			update(state, {
-				user: { $set: null },
-				errorMsg: { $set: '' }
-			});
-		case LOG_IN_FAILURE:
+		case LOAD_NEWS_FAILURE:
 			return update(state, {
 				errorMsg: { $set: action.payload.errorMsg }
 			});

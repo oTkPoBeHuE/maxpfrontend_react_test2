@@ -22,7 +22,7 @@ export function logIn({ email, password }) {
 				if (response.data.status === 'err') throw { message: response.data.message };
 				return loginSuccess({ email, id: response.data.data.id });
 			})
-			.catch(error => loginFaailure(errorMessages(error.message)))
+			.catch(error => loginFailure(errorMessages(error.message)))
 			.then(data => dispatch(data));
 
 	// const data = checkCredentials({ username, password }) ? loginSuccess(username) : loginFaailure();
@@ -48,7 +48,7 @@ function loginSuccess({ email, id }) {
 }
 
 //'Имя пользователя или пароль введены не верно'
-function loginFaailure(errorMsg = 'Ошибка входа в аккаунт') {
+function loginFailure(errorMsg = 'Ошибка входа в аккаунт') {
 	console.log('loginFaailure');
 	return {
 		type: LOG_IN_FAILURE,

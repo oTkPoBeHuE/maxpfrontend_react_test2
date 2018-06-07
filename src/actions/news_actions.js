@@ -1,37 +1,41 @@
 import axios from 'axios';
-import { checkCredentials } from 'utils/utils.js';
 import errorMessages from 'utils/error_messages.js';
-import { LOG_IN, LOG_IN_FAILURE, LOG_OUT } from '../action_types.js';
-import { LOGIN } from '../utils/backend_urls.js';
+import { ADD_NEWS, LOAD_NEWS_FAILURE } from '../action_types.js';
+import { NEWS } from '../utils/backend_urls.js';
 
-export function logIn({ email, password }) {
-	email = 'max@test.com';
-	password = '12345';
-
+export function loadNews() {
 	return dispatch =>
 		axios
-			.post(LOGIN, {
-				email,
-				password,
-				'content-type': 'application/json'
-			})
+			.get(NEWS)
 			.then(response => {
 				console.log('response', response);
 				console.log('response.data', response.data);
 
 				if (response.data.status === 'err') throw { message: response.data.message };
-				return loginSuccess({ email, id: response.data.data.id });
+				return addNews(response.data.data);
 			})
-			.catch(error => loginFaailure(errorMessages(error.message)))
+			.catch(error => loadNewsFailure(errorMessages(error.message)))
 			.then(data => dispatch(data));
-
-	// const data = checkCredentials({ username, password }) ? loginSuccess(username) : loginFaailure();
-	// const data = loginSuccess(email);
-	// return dispatch => dispatch(data);
 }
 
-export function logOut() {
+function addNews(news) {
+	console.log('news', news);
 	return {
-		type: LOG_OUT
+		type: ADD_NEWS,
+		payload: {
+			news: news
+		}
+	};
+}
+
+//'Имя пользователя или пароль введены не верно'
+function loadNewsFailure(errorMsg = 'Ошибка загрузки новостей') {
+	console.log('loginFaailure');
+	return {
+		type: LOAD_NEWS_FAILURE,
+		payload: {
+			errorMsg: errorMsg
+		},
+		error: true
 	};
 }
