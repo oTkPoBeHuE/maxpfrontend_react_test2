@@ -1,0 +1,21 @@
+# См. Https://help.github.com/ignore-files/ для получения дополнительной информации о игнорировании файлов.
+
+# зависимости
+/ node_modules
+
+# тестирование
+/ охват
+
+# производство
+/ строительство
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+NPM-debug.log *
+пряжа debug.log *
+пряжа error.log *
