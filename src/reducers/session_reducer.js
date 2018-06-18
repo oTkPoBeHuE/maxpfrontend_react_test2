@@ -8,12 +8,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	console.log('action.type', action.type);
+	console.log('action.payload', action.payload);
 	switch (action.type) {
 		case LOG_IN:
+			console.log('action.payload', action.payload.email);
 			return update(state, {
 				user: {
-					email: { $set: action.payload.email },
-					id: { $set: action.payload.id }
+					$set: { email: action.payload.email, id: action.payload.id }
 				},
 				errorMsg: { $set: '' }
 			});
