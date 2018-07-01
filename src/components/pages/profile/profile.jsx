@@ -16,6 +16,12 @@ function webIsAlwaysFirstInListComparator(left, right) {
 	return left.label === FIRST_SOCIAL ? -1 : right.label === FIRST_SOCIAL;
 }
 
+const SocialUrl = ({ link, label }) => (
+	<a href={link}>
+		<img src={getIconByName(label)} alt={label} />
+	</a>
+);
+
 class ProfilePage extends PureComponent {
 	componentDidMount() {
 		this.props.getUserProfile(this.props.id);
@@ -28,11 +34,9 @@ class ProfilePage extends PureComponent {
 				<p>Город: {data.city} </p>
 				<ul>{data.languages.map((language, index) => <li key={index}>{language}</li>)} </ul>
 				<ul className="maxpf-test2-profile_page_social">
-					{data.social.sort(webIsAlwaysFirstInListComparator).map((social, index) => (
-						<a href={social.link} key={index}>
-							<img src={getIconByName(social.label)} alt={social.label} />
-						</a>
-					))}
+					{data.social
+						.sort(webIsAlwaysFirstInListComparator)
+						.map((social, index) => <SocialUrl key={index} link={social.link} label={social.label} />)}
 				</ul>
 			</div>
 		) : null;
