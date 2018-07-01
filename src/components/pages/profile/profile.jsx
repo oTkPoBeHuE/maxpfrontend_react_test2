@@ -7,23 +7,31 @@ import { getUserProfile } from 'actions/profile_actions';
 import { Redirect } from 'react-router-dom';
 import News from 'components/news/news.jsx';
 
-class NewsPage extends PureComponent {
+import { getIconByName } from './social_pages.js';
+
+import './profile.css';
+
+function webIsAlwaysFirstInListComparator(left, right) {
+	const FIRST_SOCIAL = 'web';
+	return left.label === FIRST_SOCIAL ? -1 : right.label === FIRST_SOCIAL;
+}
+
+class ProfilePage extends PureComponent {
 	componentDidMount() {
 		this.props.getUserProfile(this.props.id);
 	}
 
 	render() {
-		console.log('data', this.props.data);
 		const data = this.props.data;
 		return data ? (
-			<div>
-				<p>Город:{data.city} </p>
-				<ul>{data.languages.map(language => <li>{language}</li>)} </ul>
-				<ul>
-					{data.social.map(social => (
-						<li>
-							<a href={social.link}>{social.label}</a>
-						</li>
+			<div className="maxpf-test2-profile_page_container">
+				<p>Город: {data.city} </p>
+				<ul>{data.languages.map((language, index) => <li key={index}>{language}</li>)} </ul>
+				<ul className="maxpf-test2-profile_page_social">
+					{data.social.sort(webIsAlwaysFirstInListComparator).map((social, index) => (
+						<a href={social.link} key={index}>
+							<img src={getIconByName(social.label)} alt={social.label} />
+						</a>
 					))}
 				</ul>
 			</div>
@@ -44,4 +52,4 @@ const mapDispatchToProps = dispatch => ({
 	getUserProfile: bindActionCreators(getUserProfile, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

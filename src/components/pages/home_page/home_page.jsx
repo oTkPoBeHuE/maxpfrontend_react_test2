@@ -1,6 +1,6 @@
 import React from 'react';
 
-const specificationURL = 'https://vk.com/@maxpfrontend-testovoe-zadanie-1';
+const specificationURL = 'https://vk.com/@maxpfrontend-testovoe-zadanie-2';
 const communityURL = 'https://vk.com/maxpfrontend';
 const vkURL = 'https://vk.com/otkpobehue';
 
