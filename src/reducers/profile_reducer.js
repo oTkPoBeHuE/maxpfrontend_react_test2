@@ -7,22 +7,25 @@ const initialState = {
 	errorMsg: ''
 };
 
-export default (state = initialState, action) => {
-	console.log('action.type', action.type);
-	console.log('action.payload', action.payload);
-	switch (action.type) {
+function getCommand({ payload, type }) {
+	switch (type) {
 		case GET_PROFILE_SUCCESS:
-			return update(state, {
-				$set: { id: action.payload.id, data: action.payload.data, errorMsg: '' }
-			});
+			return {
+				$set: { id: payload.id, data: payload.data, errorMsg: '' }
+			};
 		case GET_PROFILE_FAILURE:
-			return update(state, {
+			return {
 				$set: {
 					...initialState,
-					errorMsg: action.payload.errorMsg
+					errorMsg: payload.errorMsg
 				}
-			});
+			};
 		default:
-			return state;
+			return null;
 	}
+}
+
+export default (state = initialState, action) => {
+	const command = getCommand(action);
+	return command ? update(state, command) : state;
 };

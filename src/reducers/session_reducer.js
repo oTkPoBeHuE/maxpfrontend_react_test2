@@ -6,28 +6,30 @@ const initialState = {
 	errorMsg: ''
 };
 
-export default (state = initialState, action) => {
-	console.log('action.type', action.type);
-	console.log('action.payload', action.payload);
-	switch (action.type) {
+function getCommand({ payload, type }) {
+	switch (type) {
 		case LOG_IN:
-			console.log('action.payload', action.payload.email);
-			return update(state, {
+			return {
 				user: {
-					$set: { email: action.payload.email, id: action.payload.id }
+					$set: { email: payload.email, id: payload.id }
 				},
 				errorMsg: { $set: '' }
-			});
+			};
 		case LOG_OUT:
-			update(state, {
+			return {
 				user: { $set: null },
 				errorMsg: { $set: '' }
-			});
+			};
 		case LOG_IN_FAILURE:
-			return update(state, {
-				errorMsg: { $set: action.payload.errorMsg }
-			});
+			return {
+				errorMsg: { $set: payload.errorMsg }
+			};
 		default:
-			return state;
+			return null;
 	}
+}
+
+export default (state = initialState, action) => {
+	const command = getCommand(action);
+	return command ? update(state, command) : state;
 };

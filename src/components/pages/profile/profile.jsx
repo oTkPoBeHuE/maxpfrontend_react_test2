@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import { getUserProfile } from 'actions/profile_actions';
-import { Redirect } from 'react-router-dom';
-import News from 'components/news/news.jsx';
 
 import { getIconByName } from './social_pages.js';
 
@@ -23,34 +21,55 @@ const SocialUrl = ({ link, label }) => (
 );
 
 class ProfilePage extends PureComponent {
+	static propTypes = {
+		id: PropTypes.string,
+		data: PropTypes.object,
+		errorMsg: PropTypes.string,
+		getUserProfile: PropTypes.func.isRequired
+	};
+
+	constructor(props) {
+		super(props);
+		this.renderSocialUrl = this.renderSocialUrl.bind(this);
+		this.renderlanguage = this.renderlanguage.bind(this);
+	}
+
 	componentDidMount() {
 		this.props.getUserProfile(this.props.id);
 	}
 
+	renderSocialUrl(social, index) {
+		return <SocialUrl key={index} link={social.link} label={social.label} />;
+	}
+
+	renderlanguage(language, index) {
+		return <li key={index}>{language}</li>;
+	}
+
+	get socialUrls() {
+		return this.props.data.social.sort(webIsAlwaysFirstInListComparator).map(this.renderSocialUrl);
+	}
+
+	get languagesList() {
+		return this.props.data.languages.map(this.renderlanguage);
+	}
+
 	render() {
-		const data = this.props.data;
-		return data ? (
+		return this.props.data ? (
 			<div className="maxpf-test2-profile_page_container">
-				<p>Город: {data.city} </p>
-				<ul>{data.languages.map((language, index) => <li key={index}>{language}</li>)} </ul>
-				<ul className="maxpf-test2-profile_page_social">
-					{data.social
-						.sort(webIsAlwaysFirstInListComparator)
-						.map((social, index) => <SocialUrl key={index} link={social.link} label={social.label} />)}
-				</ul>
+				<p>Город: {this.props.data.city} </p>
+				<ul>{this.languagesList}</ul>
+				<ul className="maxpf-test2-profile_page_social">{this.socialUrls}</ul>
 			</div>
 		) : null;
 	}
 }
 
-const mapStateToProps = state => {
-	console.log('state', state);
-	return {
-		id: state.session.user.id,
-		data: state.profile.data,
-		errorMsg: state.profile.errorMsg
-	};
-};
+const mapStateToProps = state => ({
+	id: state.session.user.id,
+	data: state.profile.data,
+	errorMsg: state.profile.errorMsg
+});
 
 const mapDispatchToProps = dispatch => ({
 	getUserProfile: bindActionCreators(getUserProfile, dispatch)

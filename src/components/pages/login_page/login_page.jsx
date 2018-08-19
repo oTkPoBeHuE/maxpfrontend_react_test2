@@ -16,8 +16,8 @@ class Login extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: '',
-			password: ''
+			email: 'max@test.com',
+			password: '12345'
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,12 +77,10 @@ class Login extends PureComponent {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		user: state.session.user,
-		error: state.session.errorMsg
-	};
-};
+const mapStateToProps = state => ({
+	user: state.session.user,
+	error: state.session.errorMsg
+});
 
 const mapDispatchToProps = dispatch => ({
 	logIn: bindActionCreators(logIn, dispatch)

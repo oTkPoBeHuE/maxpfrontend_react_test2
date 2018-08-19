@@ -5,9 +5,6 @@ import { LOG_IN, LOG_IN_FAILURE, LOG_OUT } from '../action_types.js';
 import { LOGIN } from '../utils/backend_urls.js';
 
 export function logIn({ email, password }) {
-	email = 'max@test.com';
-	password = '12345';
-
 	return dispatch =>
 		axios
 			.post(LOGIN, {
@@ -16,18 +13,17 @@ export function logIn({ email, password }) {
 				'content-type': 'application/json'
 			})
 			.then(response => {
-				console.log('response', response);
-				console.log('response.data', response.data);
-
-				if (response.data.status === 'err') throw { message: response.data.message };
+				if (response.data.status === 'err') throw new Error(response.data.message);
+				if (!checkCredentials({ login: email, password: password })) throw new Error('wrong_email_or_password');
 				return loginSuccess({ email, id: response.data.data.id });
 			})
 			.catch(error => loginFailure(errorMessages(error.message)))
 			.then(data => dispatch(data));
-
-	// const data = checkCredentials({ username, password }) ? loginSuccess(username) : loginFaailure();
-	// const data = loginSuccess(email);
-	// return dispatch => dispatch(data);
+	// .then(data => {
+	// 	const data = checkCredentials({ username: email, password: password }) ? loginSuccess(email) : loginFaailure();
+	// 	const data = loginSuccess(email);
+	// 	return dispatch => dispatch(data);
+	// });
 }
 
 export function logOut() {
@@ -37,7 +33,6 @@ export function logOut() {
 }
 
 function loginSuccess({ email, id }) {
-	console.log('loginSuccess', { email, id });
 	return {
 		type: LOG_IN,
 		payload: {
@@ -47,9 +42,7 @@ function loginSuccess({ email, id }) {
 	};
 }
 
-//'Имя пользователя или пароль введены не верно'
 function loginFailure(errorMsg = 'Ошибка входа в аккаунт') {
-	console.log('loginFaailure');
 	return {
 		type: LOG_IN_FAILURE,
 		payload: {

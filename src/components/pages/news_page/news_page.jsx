@@ -4,10 +4,15 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import { loadNews } from 'actions/news_actions';
-import { Redirect } from 'react-router-dom';
 import News from 'components/news/news.jsx';
 
 class NewsPage extends PureComponent {
+	static propTypes = {
+		news: PropTypes.array,
+		error: PropTypes.string,
+		loadNews: PropTypes.func.isRequired
+	};
+
 	componentDidMount() {
 		this.props.loadNews();
 	}
@@ -15,9 +20,9 @@ class NewsPage extends PureComponent {
 	render() {
 		return (
 			<div>
-				{this.props.news.map(news => (
-					<News key={news.id} title={news.title}>
-						{news.text}
+				{this.props.news.map(({ id, title, text }) => (
+					<News key={id} title={title}>
+						{text}
 					</News>
 				))}
 			</div>
@@ -25,12 +30,10 @@ class NewsPage extends PureComponent {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		news: state.news.news,
-		error: state.news.errorMsg
-	};
-};
+const mapStateToProps = state => ({
+	news: state.news.news,
+	error: state.news.errorMsg
+});
 
 const mapDispatchToProps = dispatch => ({
 	loadNews: bindActionCreators(loadNews, dispatch)

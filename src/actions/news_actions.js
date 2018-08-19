@@ -8,10 +8,7 @@ export function loadNews() {
 		axios
 			.get(NEWS)
 			.then(response => {
-				console.log('response', response);
-				console.log('response.data', response.data);
-
-				if (response.data.status === 'err') throw { message: response.data.message };
+				if (response.data.status === 'err') throw new Error(response.data.message);
 				return addNews(response.data.data);
 			})
 			.catch(error => loadNewsFailure(errorMessages(error.message)))
@@ -19,7 +16,6 @@ export function loadNews() {
 }
 
 function addNews(news) {
-	console.log('news', news);
 	return {
 		type: ADD_NEWS,
 		payload: {
@@ -28,9 +24,7 @@ function addNews(news) {
 	};
 }
 
-//'Имя пользователя или пароль введены не верно'
 function loadNewsFailure(errorMsg = 'Ошибка загрузки новостей') {
-	console.log('loginFaailure');
 	return {
 		type: LOAD_NEWS_FAILURE,
 		payload: {

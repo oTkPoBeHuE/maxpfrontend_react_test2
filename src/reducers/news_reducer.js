@@ -6,20 +6,23 @@ const initialState = {
 	errorMsg: ''
 };
 
-// TODO: Переписать чтобы возвращался не update а объект {$set}
-export default (state = initialState, action) => {
-	console.log('action.type', action.type);
-	switch (action.type) {
+function getCommand({ payload, type }) {
+	switch (type) {
 		case ADD_NEWS:
-			return update(state, {
-				news: { $set: action.payload.news },
+			return {
+				news: { $set: payload.news },
 				errorMsg: { $set: '' }
-			});
+			};
 		case LOAD_NEWS_FAILURE:
-			return update(state, {
-				errorMsg: { $set: action.payload.errorMsg }
-			});
+			return {
+				errorMsg: { $set: payload.errorMsg }
+			};
 		default:
-			return state;
+			return null;
 	}
+}
+
+export default (state = initialState, action) => {
+	const command = getCommand(action);
+	return command ? update(state, command) : state;
 };

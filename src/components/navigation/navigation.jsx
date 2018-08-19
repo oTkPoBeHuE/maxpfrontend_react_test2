@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 const navLinkProps = {
@@ -9,11 +10,19 @@ const navLinkProps = {
 	}
 };
 
-export default ({ routes }) => {
-	const renderNavigationLink = ({ path, name }, key) => (
-		<NavLink {...navLinkProps} to={path} key={key}>
-			{name}
-		</NavLink>
-	);
-	return <nav className="nav">{routes.map(renderNavigationLink)}</nav>;
+const renderNavigationLink = ({ path, name }, key) => (
+	<NavLink {...navLinkProps} to={path} key={key}>
+		{name}
+	</NavLink>
+);
+
+const Navigation = ({ routes }) => <nav className="nav">{routes.map(renderNavigationLink)}</nav>;
+
+Navigation.propTypes = {
+	routes: PropTypes.array.isRequired
 };
+Navigation.defaultProps = {
+	routes: []
+};
+
+export default Navigation;
