@@ -65,11 +65,11 @@ class Login extends PureComponent {
 					/>
 					<input name="submit" type="submit" value="Войти" disabled={this.isDisableSubmitButton} />
 				</form>{' '}
-				{this.props.error ? (
+				{this.props.error && (
 					<div className="alert alert-danger mt-2" role="alert">
 						{this.props.error}
 					</div>
-				) : null}
+				)}
 			</div>
 		);
 	}
