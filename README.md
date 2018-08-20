@@ -10,7 +10,7 @@ Redux-thunk
 
 
 Проект представляет собой дальнейшее развитие моего предыдущего 
-[проекта](https://github.com/oTkPoBeHuE/maxpfrontend_react_test1), который был выполнен согласно [Техническое задание #1](https://vk.com/@maxpfrontend-testovoe-zadanie-1).
+[проекта](https://github.com/oTkPoBeHuE/maxpfrontend_react_test1), который был выполнен согласно [Техническому заданию #1](https://vk.com/@maxpfrontend-testovoe-zadanie-1).
 
 # Install
 
