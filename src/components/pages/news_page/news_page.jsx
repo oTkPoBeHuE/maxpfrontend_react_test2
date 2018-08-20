@@ -19,7 +19,7 @@ class NewsPage extends PureComponent {
 
 	render() {
 		return (
-			<div>
+			<div className="container">
 				{this.props.news.map(({ id, title, text }) => (
 					<News key={id} title={title}>
 						{text}

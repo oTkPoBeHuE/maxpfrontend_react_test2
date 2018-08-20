@@ -49,13 +49,32 @@ class ProfilePage extends PureComponent {
 
 	render() {
 		return this.props.data ? (
-			<div className="maxpf-test2-profile_page_container">
-				<p>Город: {this.props.data.city} </p>
-				<ul>{this.languagesList}</ul>
-				<ul className="maxpf-test2-profile_page_social">{this.socialUrls}</ul>
+			<div className="maxpf-test2-profile_page_container d-flex flex-column justify-content-center">
+				<div className="d-flex justify-content-center">
+					<p>Город: {this.props.data.city} </p>
+				</div>
+				<div className="d-flex justify-content-center">
+					<p>Знание языков:</p>
+					<ul>{this.languagesList}</ul>
+				</div>
+				<div className="d-flex flex-column  justify-content-center ">
+					<p className="d-flex justify-content-center">Ссылки:</p>
+					<ul className="maxpf-test2-profile_page_social">{this.socialUrls}</ul>
+				</div>
 			</div>
 		) : null;
 	}
+	// render() {
+	// 	return this.props.data ? (
+	// 		<div className="maxpf-test2-profile_page_container  container text-center">
+	// 			<p>Город: {this.props.data.city} </p>
+	// 			<p>Знание языков:</p>
+	// 			<ul>{this.languagesList}</ul>
+	// 			<p>Ссылки:</p>
+	// 			<ul className="maxpf-test2-profile_page_social">{this.socialUrls}</ul>
+	// 		</div>
+	// 	) : null;
+	// }
 }
 
 const mapStateToProps = state => ({

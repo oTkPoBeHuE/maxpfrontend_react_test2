@@ -1,10 +1,10 @@
 .maxpf-test2-profile_page_social {
-	display: flex;
+	/* display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: row;
+	flex-direction: row; */
 
-	height: 65px;
+	/* height: 65px; */
 }
 
 .maxpf-test2-profile_page_social a {
@@ -18,4 +18,10 @@
 
 .maxpf-test2-profile_page_social img:hover {
 	height: 65px;
+	margin-top: -3px;
+}
+
+.maxpf-test2-profile_page_container ul {
+	list-style-position: inside;
+	color: red;
 }

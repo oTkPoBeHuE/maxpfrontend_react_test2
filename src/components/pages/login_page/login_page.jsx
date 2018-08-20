@@ -45,7 +45,7 @@ class Login extends PureComponent {
 		}
 
 		return (
-			<div>
+			<div className="container text-center">
 				<form onSubmit={this.handleSubmit}>
 					<input
 						autoComplete="email"
