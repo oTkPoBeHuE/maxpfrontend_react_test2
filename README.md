@@ -1,10 +1,10 @@
 # About app
-
+```
 Тестовое задание.
 React
 Redux
 Redux-thunk
-
+```
 ТЗ: https://vk.com/@maxpfrontend-testovoe-zadanie-2
 
 
