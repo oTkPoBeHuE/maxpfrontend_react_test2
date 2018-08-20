@@ -14,31 +14,30 @@ function webIsAlwaysFirstInListComparator(left, right) {
 	return left.label === FIRST_SOCIAL ? -1 : right.label === FIRST_SOCIAL;
 }
 
-const SocialUrl = ({ link, label }) => (
-	<a href={link}>
-		<img src={getIconByName(label)} alt={label} />
-	</a>
-);
-
 class ProfilePage extends PureComponent {
 	static propTypes = {
 		id: PropTypes.number,
-		data: PropTypes.object,
 		errorMsg: PropTypes.string,
-		getUserProfile: PropTypes.func.isRequired
+		getUserProfile: PropTypes.func.isRequired,
+		data: PropTypes.shape({
+			social: PropTypes.array.isRequired,
+			languages: PropTypes.array.isRequired,
+			city: PropTypes.string.isRequired,
+			userId: PropTypes.number.isRequired
+		})
 	};
 
 	componentDidMount() {
 		this.props.getUserProfile(this.props.id);
 	}
 
-	renderSocialUrl = (social, index) => {
-		return <SocialUrl key={index} link={social.link} label={social.label} />;
-	};
+	renderSocialUrl = ({ link, label }, index) => (
+		<a href={link} key={label}>
+			<img src={getIconByName(label)} alt={label} />
+		</a>
+	);
 
-	renderlanguage = (language, index) => {
-		return <li key={index}>{language}</li>;
-	};
+	renderlanguage = (language, index) => <li key={index}>{language}</li>;
 
 	get socialUrls() {
 		return this.props.data.social.sort(webIsAlwaysFirstInListComparator).map(this.renderSocialUrl);
