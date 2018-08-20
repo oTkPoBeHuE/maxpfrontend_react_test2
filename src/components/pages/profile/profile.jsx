@@ -22,7 +22,7 @@ const SocialUrl = ({ link, label }) => (
 
 class ProfilePage extends PureComponent {
 	static propTypes = {
-		id: PropTypes.string,
+		id: PropTypes.number,
 		data: PropTypes.object,
 		errorMsg: PropTypes.string,
 		getUserProfile: PropTypes.func.isRequired
