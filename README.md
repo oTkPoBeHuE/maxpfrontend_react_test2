@@ -5,12 +5,12 @@ React
 Redux
 Redux-thunk
 ```
-[ТЗ](https://vk.com/@maxpfrontend-testovoe-zadanie-2)
+[Техническое задание #2](https://vk.com/@maxpfrontend-testovoe-zadanie-2)
 
 
 
-Проект представляет собой дальнейшее развитие моего предыдущего проекта: https://github.com/oTkPoBeHuE/maxpfrontend_react_test1
-который был выполнен согласно ТЗ: https://vk.com/@maxpfrontend-testovoe-zadanie-1
+Проект представляет собой дальнейшее развитие моего предыдущего 
+[проекта](https://github.com/oTkPoBeHuE/maxpfrontend_react_test1), который был выполнен согласно [Техническое задание #1](https://vk.com/@maxpfrontend-testovoe-zadanie-1).
 
 # Install
 
