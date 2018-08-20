@@ -19,23 +19,21 @@ class Login extends PureComponent {
 			email: 'max@test.com',
 			password: '12345'
 		};
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleChange({ target: { name, value } }) {
+	handleChange = ({ target: { name, value } }) => {
 		this.setState({
 			[name]: value
 		});
-	}
+	};
 
-	handleSubmit(event) {
+	handleSubmit = event => {
 		if (!this.isDisableSubmitButton) {
 			const { email, password } = this.state;
 			this.props.logIn({ email, password });
 		}
 		event.preventDefault();
-	}
+	};
 
 	get isDisableSubmitButton() {
 		return !this.state.email || !this.state.password;

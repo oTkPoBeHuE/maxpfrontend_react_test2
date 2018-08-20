@@ -28,23 +28,17 @@ class ProfilePage extends PureComponent {
 		getUserProfile: PropTypes.func.isRequired
 	};
 
-	constructor(props) {
-		super(props);
-		this.renderSocialUrl = this.renderSocialUrl.bind(this);
-		this.renderlanguage = this.renderlanguage.bind(this);
-	}
-
 	componentDidMount() {
 		this.props.getUserProfile(this.props.id);
 	}
 
-	renderSocialUrl(social, index) {
+	renderSocialUrl = (social, index) => {
 		return <SocialUrl key={index} link={social.link} label={social.label} />;
-	}
+	};
 
-	renderlanguage(language, index) {
+	renderlanguage = (language, index) => {
 		return <li key={index}>{language}</li>;
-	}
+	};
 
 	get socialUrls() {
 		return this.props.data.social.sort(webIsAlwaysFirstInListComparator).map(this.renderSocialUrl);
